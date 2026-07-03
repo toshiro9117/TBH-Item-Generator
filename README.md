@@ -71,6 +71,10 @@ Windows setup and usage for the local proxy hook.
 - Item IDs can be found on the game wiki.
 - https://taskbarhero.wiki/gear
 
+## Recommend
+- I recommend to use dummy account for this since this can get you banned if caught
+- If you know how to use this then you can use it on you main acc at your own risk.
+
 ## Files
 
 - `config.json`
