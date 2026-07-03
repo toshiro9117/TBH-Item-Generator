@@ -1,7 +1,9 @@
 # TBH Item Generator
 
   ![alt text](image2.png)
-   
+
+
+This Code is not Mine - Credits To The Owner
 Windows setup and usage for the local proxy hook.
 
 ## Requirements
