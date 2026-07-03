@@ -78,7 +78,9 @@ This Code is not Mine - Credits To The Owner
 - Item IDs can be found on the game wiki.
 - https://taskbarhero.wiki/gear
 
-   ```text
+
+Change only the Gear IDs below to the gear you want.
+
   "range_replacement": {
     "enabled": true,
     "name": "Range replacement",
@@ -92,7 +94,6 @@ This Code is not Mine - Credits To The Owner
     ]
   }
 }
-   ```
 
 10. Start the game and trigger the box reward request.
 11. When finished, disable the Windows proxy.
