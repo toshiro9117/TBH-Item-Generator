@@ -41,6 +41,8 @@ Windows setup and usage for the local proxy hook.
    127.0.0.1:8877
    ```
 
+   ![alt text](image.png)
+
 7. Keep the proxy running, then open this in a browser and click the Windows certificate:
 
    ```text
@@ -62,11 +64,12 @@ Windows setup and usage for the local proxy hook.
 10. Start the game and trigger the box reward request.
 11. When finished, disable the Windows proxy.
 
-## Item ID
+## Gear ID
 
-- `619171` is an item ID.
-- You can replace it with other item IDs in `config.json`.
+- `619171` is an gear ID.
+- You can replace it with other gear IDs in `config.json`.
 - Item IDs can be found on the game wiki.
+- https://taskbarhero.wiki/gear
 
 ## Files
 
