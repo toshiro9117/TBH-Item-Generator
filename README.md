@@ -52,6 +52,7 @@ Windows setup and usage for the local proxy hook.
    ```text
    http://mitm.it
    ```
+![alt text](image-1.png)
 
 8. After the first proxy start, the certificate is available at:
 
