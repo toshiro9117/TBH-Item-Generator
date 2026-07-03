@@ -85,13 +85,13 @@ Change only the Gear IDs below to the gear you want.
     "match_min_item_id": 500000,
     "match_max_item_id": 950000,
     "replacement_reward_item_ids": [
-609141,
-619141,
-629171,
-639141  
+"Add the gear ids you want here"
     ]
   }
 }
+
+Sample:
+<img width="413" height="291" alt="image" src="https://github.com/user-attachments/assets/677f6065-0e77-4f13-82df-c01c70b5a683" />
 
 10. Start the game and trigger the box reward request.
 11. When finished, disable the Windows proxy.
