@@ -72,8 +72,6 @@ This Code is not Mine - Credits To The Owner
    Trusted Root Certification Authorities
    ```
 ## Gear ID
-
-- `619171` is an gear ID.
 - You can replace it with other gear IDs in `config.json`.
 - Item IDs can be found on the game wiki.
 - https://taskbarhero.wiki/gear
