@@ -78,6 +78,7 @@ Windows setup and usage for the local proxy hook.
 ## Recommend
 - I recommend to use dummy account for this since this can get you banned if caught
 - If you know how to use this then you can use it on you main acc at your own risk.
+- Dont sell to the market, synthesis or craft the generated items or gear use it as equipment only.
 
 ## Files
 
