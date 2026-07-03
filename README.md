@@ -5,7 +5,12 @@
 
 This Code is not Mine - Credits To The Owner
 
-Windows setup and usage for the local proxy hook.
+## Recommend
+- Use a secondary (dummy) account, as this may result in a ban if detected.
+- If you choose to use your main account, you do so at your own risk.
+- It is recommended to collect all chests first, then use the generator to obtain items in a single session.
+- Do not sell, synthesize, or craft generated items or gear. Use them as equipment only.
+
 
 ## Requirements
 
@@ -66,10 +71,6 @@ Windows setup and usage for the local proxy hook.
    ```text
    Trusted Root Certification Authorities
    ```
-
-10. Start the game and trigger the box reward request.
-11. When finished, disable the Windows proxy.
-
 ## Gear ID
 
 - `619171` is an gear ID.
@@ -77,11 +78,27 @@ Windows setup and usage for the local proxy hook.
 - Item IDs can be found on the game wiki.
 - https://taskbarhero.wiki/gear
 
-## Recommend
-- Use a secondary (dummy) account, as this may result in a ban if detected.
-- If you choose to use your main account, you do so at your own risk.
-- It is recommended to collect all chests first, then use the generator to obtain items in a single session.
-- Do not sell, synthesize, or craft generated items or gear. Use them as equipment only.
+   ```text
+  "range_replacement": {
+    "enabled": true,
+    "name": "Range replacement",
+    "match_min_item_id": 500000,
+    "match_max_item_id": 950000,
+    "replacement_reward_item_ids": [
+609141,
+619141,
+629171,
+639141  
+    ]
+  }
+}
+   ```
+
+10. Start the game and trigger the box reward request.
+11. When finished, disable the Windows proxy.
+
+
+
 
 ## Files
 
