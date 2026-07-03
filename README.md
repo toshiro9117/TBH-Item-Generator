@@ -1,4 +1,4 @@
-# TBH Reward Hook
+# TBH Item Generator
 
 Windows setup and usage for the local proxy hook.
 
