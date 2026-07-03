@@ -78,10 +78,10 @@ Windows setup and usage for the local proxy hook.
 - https://taskbarhero.wiki/gear
 
 ## Recommend
-- I recommend to use dummy account for this since this can get you banned if caught
-- If you know how to use this then you can use it on you main acc at your own risk.
-- I recommend to farm up chest first once you got all chest apply this generator to generate items in one go.
-- Dont sell to the market, synthesis or craft the generated items or gear use it as equipment only.
+- Use a secondary (dummy) account, as this may result in a ban if detected.
+- If you choose to use your main account, you do so at your own risk.
+- It is recommended to collect all chests first, then use the generator to obtain items in a single session.
+- Do not sell, synthesize, or craft generated items or gear. Use them as equipment only.
 
 ## Files
 
