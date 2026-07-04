@@ -75,6 +75,8 @@ This Code is not Mine - Credits To The Owner
 - You can replace it with other gear IDs in `config.json`.
 - Item IDs can be found on the game wiki.
 - https://taskbarhero.wiki/gear
+<img width="435" height="83" alt="image" src="https://github.com/user-attachments/assets/a4f8533c-a878-443f-93d4-294f3db9676f" />
+
 
 
 Change only the Gear IDs below to the gear you want.
