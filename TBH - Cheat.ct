@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="52">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Attach Game"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+if getProcessIDFromProcessName("TaskBarHero.exe") ~= nil then 
+openProcess("TaskBarHero.exe")
+mono_initialize()
+LaunchMonoDataCollector()
+else 
+showMessage("TaskBarHero.exe not found.") 
+disableCheat() 
+end
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>30</ID>
+          <Description>"TBH: Task Bar Hero v1.00.14"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+{$lua}
+if syntaxcheck then return end
+local function compactMode()
+    if MainForm then
+        MainForm.Splitter1.Visible = false
+        MainForm.Panel5.Visible    = false
+    end
+end
+local function normalMode()
+    if MainForm then
+        MainForm.Splitter1.Visible = true
+        MainForm.Panel5.Visible    = true
+    end
+end
+ 
+[ENABLE]
+local aobPattern = "488B05????????83B8E40000000075??488BC8E8????????488B05????????488B80B8000000488B48204885C974??488B15????????E8"
+local moduleName = "GameAssembly.dll"
+function findPstat()
+    local moduleBase = getAddress(moduleName)
+    if not moduleBase then
+        print("Error: " .. moduleName .. " not found!")
+        return nil
+    end
+    local moduleSize = getModuleSize(moduleName)
+    local results = AOBScan(aobPattern, "+X-C-W", 0, moduleBase, moduleBase + moduleSize)
+    if not results or results.Count == 0 then
+        print("Error: AOB pattern not found!")
+        return nil
+    end
+    local matchAddress = getAddress(results[0])
+    results.destroy()
+    local relativeOffset = readInteger(matchAddress + 3)
+    local PstatAddress = matchAddress + 7 + relativeOffset
+    return PstatAddress
+end
+local PstatBase = findPstat()
+if not PstatBase then
+    print("Failed to find Pstat address!")
+    return
+end
+unregisterSymbol("Pstat")
+registerSymbol("Pstat", PstatBase, true)
+ 
+local fontName = "Consolas"
+local fontSize = 10
+local fontColor = 0xFFFFFF
+ 
+if _G.MyCustomHeader == nil then
+    local main = getMainForm()
+ 
+    local p = createPanel(main)
+    p.Name = "MyCustomHeaderPanel"
+    p.Align = "alTop"
+    p.Height = 20
+    p.Color = 0x000000
+ 
+    local lbl = createLabel(p)
+    lbl.Caption = "TBH: Task Bar Hero Table - Created By Jonxpin"
+    lbl.Font.Name = fontName
+    lbl.Font.Size = fontSize
+    lbl.Font.Color = fontColor
+    lbl.Font.Style = "fsBold"
+    lbl.Transparent = true
+    lbl.AutoSize = true
+ 
+    local function centerLabel()
+      lbl.Left = (p.Width - lbl.Width) // 2
+      lbl.Top = (p.Height - lbl.Height) // 2
+    end
+ 
+    centerLabel()
+    p.OnResize = centerLabel
+    _G.MyCustomHeader = {
+      panel = p,
+      label = lbl
+    }
+end
+synchronize(compactMode)
+[DISABLE]
+synchronize(normalMode)
+unregisterSymbol("Pstat")
+if _G.MyCustomHeader ~= nil then
+    _G.MyCustomHeader.panel.destroy()
+    _G.MyCustomHeader = nil
+end
+ 
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1337094847</ID>
+              <Description>"ACTk Bypass"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-21
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+// Must Activate Mono Features!
+ 
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhu:
+db C3
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhn:
+db C3
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhx:
+db C3
+CodeStage.AntiCheat.Detectors.InjectionDetector.ygz:
+db C3
+CodeStage.AntiCheat.Detectors.SpeedHackDetector.Update:
+db C3
+CodeStage.AntiCheat.Detectors.SpeedHackDetector.OnApplicationPause:
+db C3
+CodeStage.AntiCheat.Detectors.TimeCheatingDetector.Update:
+db C3
+CodeStage.AntiCheat.Detectors.TimeCheatingDetector.OnApplicationPause:
+db C3
+CodeStage.AntiCheat.Detectors.WallHackDetector.Update:
+db C3
+ 
+[DISABLE]
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhu:
+db 41
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhn:
+db 48
+CodeStage.AntiCheat.Detectors.ObscuredCheatingDetector.yhx:
+db 48
+CodeStage.AntiCheat.Detectors.InjectionDetector.ygz:
+db 40
+CodeStage.AntiCheat.Detectors.SpeedHackDetector.Update:
+db 40
+CodeStage.AntiCheat.Detectors.SpeedHackDetector.OnApplicationPause:
+db 48
+CodeStage.AntiCheat.Detectors.TimeCheatingDetector.Update:
+db 40
+CodeStage.AntiCheat.Detectors.TimeCheatingDetector.OnApplicationPause:
+db 48
+CodeStage.AntiCheat.Detectors.WallHackDetector.Update:
+db 40
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337094886</ID>
+              <Description>"God Mode"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(godmode,GameAssembly.dll,57 48 83 EC 50 80 3D ?? ?? ?? ?? ?? 41 0F B6 F9 48 8B DA)
+ 
+godmode:
+  db C3
+ 
+registersymbol(godmode)
+ 
+[DISABLE]
+ 
+godmode:
+  db 57
+ 
+unregistersymbol(godmode)
+ 
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>38</ID>
+              <Description>"Exp"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-21
+   Author            : Jonxpin
+}
+ 
+{$lua}
+if syntaxcheck then return end
+ 
+[ENABLE]
+local pat = "F3 0F 58 ?? ?? 33 ?? ?? 8D ?? 24 ?? 0F 28 ?? E8 ?? ?? ?? ?? 8B ?? 10 0F 10"
+local modBase = getAddress("GameAssembly.dll")
+local modSize = getModuleSize("GameAssembly.dll")
+local r = AOBScan(pat, "+X-C-W", 0, modBase, modBase + modSize)
+if not r or r.Count == 0 then print("Exp: pattern not found") return end
+local n = r.Count
+ 
+local block = allocateMemory(8 + n * 32, modBase)
+writeFloat(block, 1.0)
+unregisterSymbol("xpmult")
+registerSymbol("xpmult", block, true)
+ 
+_G.expN = n
+_G.expBlock = block
+_G.expAddrs = {}
+_G.expOrig = {}
+ 
+local function b4(v)
+    v = v % 0x100000000
+    return v%256, math.floor(v/256)%256, math.floor(v/65536)%256, math.floor(v/16777216)%256
+end
+ 
+for i = 0, n-1 do
+    local addr = getAddress(r[i])
+    _G.expAddrs[i] = addr
+    _G.expOrig[i] = readBytes(addr, 7, true)
+    local tramp = block + 8 + i*32
+    local o0,o1,o2,o3 = b4(block-(tramp+8))
+    writeBytes(tramp+0,  {0xF3,0x0F,0x59,0x05,o0,o1,o2,o3})
+    writeBytes(tramp+8,  {0xF3,0x0F,0x58,0xC6})
+    writeBytes(tramp+12, {0x45,0x33,0xC0})
+    writeBytes(tramp+15, {0xFF,0x25,0x00,0x00,0x00,0x00})
+    local ret = addr+7
+    local r0,r1,r2,r3 = b4(ret)
+    local r4,r5,r6,r7 = b4(math.floor(ret/0x100000000))
+    writeBytes(tramp+21, {r0,r1,r2,r3,r4,r5,r6,r7})
+    local j0,j1,j2,j3 = b4(tramp-(addr+5))
+    writeBytes(addr, {0xE9,j0,j1,j2,j3,0x90,0x90})
+end
+r.destroy()
+ 
+[DISABLE]
+for i = 0, (_G.expN or 0)-1 do
+    local addr = _G.expAddrs and _G.expAddrs[i]
+    local orig = _G.expOrig and _G.expOrig[i]
+    if addr and orig then writeBytes(addr, orig) end
+end
+unregisterSymbol("xpmult")
+if _G.expBlock then deAlloc(_G.expBlock) end
+_G.expBlock = nil
+_G.expAddrs = nil
+_G.expOrig = nil
+_G.expN = nil
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>37</ID>
+                  <Description>"Multiplier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>xpmult</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Money"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(money,GameAssembly.dll,45 33 C0 48 8D 4C 24 ?? 48 8D 14 30)
+alloc(newmem,$1000,money)
+alloc(moneyo, $8)
+alloc(mymoney,8)
+label(code)
+label(return)
+ 
+moneyo:
+  readmem(money, 8)
+newmem:
+  mov rax, [mymoney]
+code:
+  reassemble(money)
+  reassemble(money+3)
+  jmp return
+  align 10 cc
+  mymoney:
+  dq #1000000000
+ 
+money:
+  jmp newmem
+  nop 3
+return:
+registersymbol(money moneyo mymoney)
+ 
+[DISABLE]
+ 
+money:
+  readmem(moneyo, 8)
+ 
+unregistersymbol(money moneyo mymoney)
+dealloc(newmem)
+dealloc(moneyo mymoney)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>7</ID>
+                  <Description>"Change"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>mymoney</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>39</ID>
+              <Description>"Inf Skill Pts"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(skillpts,GameAssembly.dll,?? ?? 48 8D 4D F0 8B D0 45 33 C0 E8 ?? ?? ?? ?? 33 D2)
+alloc(newmem,$1000,skillpts)
+alloc(skillptso, $6)
+label(code)
+label(return)
+ 
+skillptso:
+  readmem(skillpts, 6)
+newmem:
+code:
+  reassemble(skillpts+2)
+  jmp return
+ 
+skillpts:
+  jmp newmem
+  nop 1
+return:
+registersymbol(skillpts skillptso)
+ 
+[DISABLE]
+ 
+skillpts:
+  readmem(skillptso, 6)
+ 
+unregistersymbol(skillpts skillptso)
+dealloc(newmem)
+dealloc(skillptso)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337094845</ID>
+              <Description>"Speedhack"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+alloc(speedMultiplier, 4)
+registersymbol(speedMultiplier)
+ 
+speedMultiplier:
+  dd 40000000
+ 
+{$lua}
+if syntaxcheck then return end
+speedhack_setSpeed(2.0)
+{$asm}
+ 
+[DISABLE]
+ 
+{$lua}
+if syntaxcheck then return end
+speedhack_setSpeed(1.0)
+{$asm}
+ 
+unregistersymbol(speedMultiplier)
+dealloc(speedMultiplier)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337095004</ID>
+              <Description>"Cube Xp"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-20
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(cubexp,GameAssembly.dll,F3 0F 58 ?? ?? 33 ?? ?? 8D ?? 24 ?? 0F 28 ?? E8 ?? ?? ?? ?? 0F 10 ?? 8B ?? 10)
+alloc(newmem,$1000,cubexp)
+alloc(cubexpo,$7)
+label(return)
+label(cubeExpValue)
+registersymbol(cubexpo)
+registersymbol(cubeExpValue)
+ 
+cubexpo:
+  readmem(cubexp,7)
+newmem:
+  mulss xmm6,[cubeExpValue]
+  reassemble(cubexp)
+  reassemble(cubexp+4)
+  jmp return
+  align 10 cc
+ 
+cubeExpValue:
+  dd (float)10000000.0 //10x
+ 
+cubexp:
+  jmp newmem
+  nop 2
+return:
+ 
+[DISABLE]
+ 
+cubexp:
+  readmem(cubexpo,7)
+ 
+unregistersymbol(cubexpo)
+unregistersymbol(cubeExpValue)
+dealloc(newmem)
+dealloc(cubexpo)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337094887</ID>
+                  <Description>"Mutliplier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>cubeExpValue</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>36</ID>
+              <Description>"Stats"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337094880</ID>
+                  <Description>"Attack"</Description>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>31</ID>
+                      <Description>"Attack Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>3C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>46</ID>
+                      <Description>"Attack Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>4C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>32</ID>
+                      <Description>"Critical Chance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>5C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>47</ID>
+                      <Description>"Critical Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>6C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>49</ID>
+                      <Description>"Cooldown Reduction"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>CC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>48</ID>
+                      <Description>"Cast Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Double</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>338</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094865</ID>
+                      <Description>"Physical Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>1AC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094879</ID>
+                      <Description>"Fire Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>1BC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094867</ID>
+                      <Description>"Cold Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>1CC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094869</ID>
+                      <Description>"Lightning Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>1DC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094883</ID>
+                      <Description>"Chaos Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>1EC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094881</ID>
+                  <Description>"Defense"</Description>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>35</ID>
+                      <Description>"Max Hp"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>7C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>34</ID>
+                      <Description>"Armor"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>8C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094849</ID>
+                      <Description>"Dodge Chance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>12C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094857</ID>
+                      <Description>"Block Chance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>13C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094861</ID>
+                      <Description>"All Element Resistance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>36C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094855</ID>
+                      <Description>"Hp Regen /Sec"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Double</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>198</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094876</ID>
+                      <Description>"Dmg Absorption"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>2AC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094863</ID>
+                      <Description>"Dmg Reduction"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>24C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094882</ID>
+                  <Description>"Others"</Description>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>33</ID>
+                      <Description>"Movement Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>9C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094872</ID>
+                      <Description>"Area of Effect %"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Double</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>A8</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094874</ID>
+                      <Description>"Area of Effect Damage"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Double</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>398</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094859</ID>
+                      <Description>"Add HP/Kill"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>3CC</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094853</ID>
+                      <Description>"Life Leech"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>17C</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094878</ID>
+                      <Description>"Skill Heal"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Double</VariableType>
+                      <Address>Pstat</Address>
+                      <Offsets>
+                        <Offset>348</Offset>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                        <Offset>10</Offset>
+                        <Offset>40</Offset>
+                        <Offset>B8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337094891</ID>
+              <Description>"Unlocker (Restart the game after making edits)"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-20
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(accountsave,GameAssembly.dll,?? 8B ?? 28 ?? 85 ?? 0F 84 ?? ?? ?? ?? ?? 8B ?? 10 ?? 85 ?? 0F 84 ?? ?? ?? ?? ?? 8B ?? 48 ?? 85 ?? 0F 84 ?? ?? ?? ?? 3B ?? 18 0F 8D ?? ?? ?? ?? ?? 8B ?? ?? ?? ?? ?? 39 ?? E4 00 00 00 75 ?? E8 ?? ?? ?? ?? ?? 38 ?? ?? ?? ?? ?? 75 ?? ?? 8D)
+alloc(newmem,$1000,accountsave)
+alloc(accountsaveo, 7)
+alloc(unlockme, 8)
+label(return)
+registersymbol(accountsaveo)
+registersymbol(unlockme)
+ 
+accountsaveo:
+  readmem(accountsave, 7)
+newmem:
+  mov [unlockme],rax
+  reassemble(accountsave)
+  reassemble(accountsave+4)
+  jmp return
+  align 10 cc
+ 
+accountsave:
+  jmp newmem
+  nop 2
+return:
+ 
+[DISABLE]
+ 
+accountsave:
+  readmem(accountsaveo, 7)
+ 
+unregistersymbol(accountsaveo)
+unregistersymbol(unlockme)
+ 
+dealloc(newmem)
+dealloc(unlockme)
+dealloc(accountsaveo)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337094962</ID>
+                  <Description>"Game Version"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>999</Length>
+                  <Unicode>1</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>[unlockme]+28</Address>
+                  <Offsets>
+                    <Offset>14</Offset>
+                    <Offset>10</Offset>
+                    <Offset>10</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337095003</ID>
+                  <Description>"--------------------------------------------- ----------------------------------------------"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094959</ID>
+                  <Description>"Hero"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>[unlockme]+28</Address>
+                  <Offsets>
+                    <Offset>10</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>1337094997</ID>
+                      <Description>"Knight"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>20</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337095002</ID>
+                      <Description>"Ranger"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>28</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337095001</ID>
+                      <Description>"Sorcerer"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>30</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337095000</ID>
+                      <Description>"Priest"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>38</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094999</ID>
+                      <Description>"Hunter"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>40</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094998</ID>
+                      <Description>"Slayer"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                        <Offset>48</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094960</ID>
+                  <Description>"Pet"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>[unlockme]+28</Address>
+                  <Offsets>
+                    <Offset>10</Offset>
+                    <Offset>58</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>1337094893</ID>
+                      <Description>"Bat"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>20</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094894</ID>
+                      <Description>"Wacther"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>28</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094896</ID>
+                      <Description>"Burning Skeleton"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>30</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094897</ID>
+                      <Description>"Blue Golem"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>38</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094898</ID>
+                      <Description>"Dark Spirit"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>40</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094899</ID>
+                      <Description>"Sword"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>48</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094900</ID>
+                      <Description>"Butterfly"</Description>
+                      <DropDownListLink>Dragon</DropDownListLink>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>50</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337094901</ID>
+                      <Description>"Dragon"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Locked
+1:Unlocked
+</DropDownList>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Byte</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>14</Offset>
+                        <Offset>58</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337094977</ID>
+              <Description>"Stage (Info Only)"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   : TaskBarHero.exe
+   Script Date       : 2026-06-15
+   Author            : Jonxpin
+}
+ 
+[ENABLE]
+ 
+aobscanmodule(stage,GameAssembly.dll,8B 49 4C 48 8D 54 24 40)
+alloc(newmem,$1000,stage)
+alloc(stageo, $8)
+alloc(stagedata,8)
+label(code)
+label(return)
+ 
+stageo:
+  readmem(stage, 8)
+newmem:
+  mov [stagedata],rcx
+code:
+  reassemble(stage)
+  reassemble(stage+3)
+  jmp return
+ 
+stage:
+  jmp newmem
+  nop 3
+return:
+registersymbol(stage stageo stagedata)
+ 
+[DISABLE]
+ 
+stage:
+  readmem(stageo, 8)
+ 
+unregistersymbol(stage stageo stagedata)
+dealloc(stagedata)
+dealloc(newmem)
+dealloc(stageo)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337094979</ID>
+                  <Description>"Act"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+48</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094980</ID>
+                  <Description>"StageNo"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+4C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094981</ID>
+                  <Description>"StageLevel"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+50</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094982</ID>
+                  <Description>"WaveAmount"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+54</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094983</ID>
+                  <Description>"WaveMonsterAmount"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+58</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094984</ID>
+                  <Description>"MonsterDropItemKey"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+68</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094985</ID>
+                  <Description>"FirstClearDropKey"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+6C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094986</ID>
+                  <Description>"MonsterDropItemRate"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+70</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094987</ID>
+                  <Description>"BossDropItemRate"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+74</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094988</ID>
+                  <Description>"BossDropItemKey"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+78</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094989</ID>
+                  <Description>"BossMonsterKey"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+7C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094990</ID>
+                  <Description>"BossDamageMultiplier"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+80</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094991</ID>
+                  <Description>"BossGoldMultiplier"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+84</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094992</ID>
+                  <Description>"BossExpMultiplier"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+88</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094993</ID>
+                  <Description>"BossHpMultiplier"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+8C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094994</ID>
+                  <Description>"BossScale"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+90</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094995</ID>
+                  <Description>"SoulStoneItemKey"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+94</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337094996</ID>
+                  <Description>"SoulStoneAmount"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>[stagedata]+98</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
