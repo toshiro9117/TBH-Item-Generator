@@ -326,7 +326,7 @@ def run_self_test() -> None:
     )
     normal_result = rewriter.rewrite(normal_body)
     assert normal_result.modified_count == 3, normal_result
-    assert _extract_reward_ids(normal_result.body) == [519171, 519171, 519171], normal_result.body
+    assert _extract_reward_ids(normal_result.body) == [415171, 415171, 415171], normal_result.body
  
     escaped_body = (
         r'{"boxes":[{"itemId":910801,"rewardItemId":2001},'
@@ -334,7 +334,7 @@ def run_self_test() -> None:
     )
     escaped_result = rewriter.rewrite(escaped_body)
     assert escaped_result.modified_count == 2, escaped_result
-    assert r'"rewardItemId":519171' in escaped_result.body, escaped_result.body
+    assert r'"rewardItemId":415171' in escaped_result.body, escaped_result.body
  
     range_config = ProxyConfig(
         listen_port=8877,
